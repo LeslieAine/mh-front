@@ -1,0 +1,10 @@
+.creator {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    position:relative;
+    height: 50px;
+    border-top: 1px solid #e1e8ed;
+    padding: 0 20px;
+}

@@ -1,0 +1,10 @@
+/* ContentList.css */
+.content-list {
+    display: flex;
+    flex-direction: column; /* Display content cards in a column */
+    align-items: center; /* Center content cards horizontally */
+    margin-bottom: 40px; /* this was added so the fixed navbar doesnt intefere with items at the very bottom */
+  }
+  
+  /* Add more styling for the content list as needed */
+  

@@ -1,0 +1,11 @@
+/* ContentList.css */
+.order-list {
+    display: flex;
+    flex-direction: column; /* Display content cards in a column */
+    align-items: center; /* Center content cards horizontally */
+    /* height: 50%; */
+    margin-bottom: 40px;
+  }
+  
+  /* Add more styling for the content list as needed */
+  
