@@ -1,0 +1,48 @@
+/* DM.css */
+.dm-list {
+    max-width: 400px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the list horizontally */
+    padding: 10px;
+  }
+  
+  .dm {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #fff; /* White background for each DM */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  }
+  
+  .dm-avatar {
+    margin-right: 10px;
+  }
+  
+  .dm-avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .dm-content {
+    flex: 1;
+  }
+  
+  .dm-user {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .dm-message {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333; /* Text color */
+  }
+  
+  /* Hover effect on DM items */
+  .dm:hover {
+    background-color: #f5f8fa; /* Light blue background on hover */
+    cursor: pointer;
+  }
+  
