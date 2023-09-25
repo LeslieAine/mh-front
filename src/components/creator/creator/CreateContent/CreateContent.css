@@ -1,0 +1,72 @@
+/* Styles for the ContentCreationButton component */
+.content-creation-button {
+    background-color: #0084ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+ /* Styles for the ContentCreationForm component (Mobile First) */
+.content-creation-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-direction: column; /* Display form elements in a column */
+  }
+  
+  .content-creation-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px; /* Add space below the heading */
+    color: #fff; /* Change text color to white */
+    text-align: center; /* Center the heading */
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; /* Arrange form elements in a column */
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff; /* Change text color to white */
+  }
+  
+  input[type="text"],
+  input[type="checkbox"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  button {
+    background-color: #0084ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  /* Hide background when the form is open */
+  body.form-open {
+    overflow: hidden; /* Prevent scrolling when the form is open */
+  }
+  
