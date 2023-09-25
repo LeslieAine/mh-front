@@ -2,7 +2,9 @@ import React from 'react'
 
 function FavoritedBy() {
   return (
-    <div>FavoritedBy</div>
+    <div>
+        <i className="fas fa-star"></i>
+    </div>
   )
 }
 
