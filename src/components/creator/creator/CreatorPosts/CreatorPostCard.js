@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import ReactionsBar from './ReactionsBar/ReactionsBar'
 import './PostCard.css'
 
