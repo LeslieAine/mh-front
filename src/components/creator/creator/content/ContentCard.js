@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchContent } from './contentSlice';
+import { fetchContent } from '../../../../redux/content/contentSlice';
 import './ContentCard.css';
 
 function ContentCard({ title, numberOfBuys, price, length }) {
