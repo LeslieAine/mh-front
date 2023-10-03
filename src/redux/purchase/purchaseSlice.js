@@ -1,7 +1,7 @@
 // purchaseSlice.js
 
 import { createSlice } from '@reduxjs/toolkit';
-import { updateBalance } from './userSlice'; // Import the userSlice action
+import { updateBalance } from '../user/userSlice'; // Import the userSlice action
 
 const initialState = {
     purchases: [], // Array to store purchase history
