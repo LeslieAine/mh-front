@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  Routes, Route,
+  Routes, Route, Navigate
 } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CreatorHomePage from '../components/creator/Pages/CreatorHomePage/CreatorHomePage';
 import ContentPage from '../components/creator/Pages/Content/ContentPage';
 import OrderPage from '../components/creator/Pages/Orders/OrderPage';
@@ -13,18 +13,20 @@ import ContentList from '../components/creator/creator/content/ContentList';
 import About from '../components/creator/creator/About/About';
 import CreatorPostList from '../components/creator/creator/CreatorPosts/CreatorPostList';
 import samplePosts from '../components/Client/ClientHomePage/post/SamplePosts';
+import PostList from '../components/Client/ClientHomePage/post/PostList';
+import LandingPage from '../components/Pages/LandingPage/Landing';
 
 
 const AppRouter = () => {
-//   const ProtectedRoute = ({ children }) => {
-//     const user = useSelector((state) => state.authentication.user) || JSON.parse(localStorage.getItem('user'));
+  const ProtectedRoute = ({ children }) => {
+    const user = useSelector((state) => state.authentication.user) || JSON.parse(localStorage.getItem('user'));
 
-//     if (!user) {
-//       return <Navigate to="/" replace />;
-//     }
+    if (!user) {
+      return <Navigate to="/" replace />;
+    }
 
-//     return children;
-//   };
+    return children;
+  };
 const contentData = [
     {
       title: 'Song Title 1',
@@ -56,32 +58,20 @@ const contentData = [
 
   return (
     <Routes>
-      {/* <Route exact path="/" element={<LandingPage />} /> */}
-      <Route
-        path="/"
-        element={(
-            <CreatorHomePage />
-      )}
-      />
-      <Route
-        path="/content"
-        element={(
-            <ContentPage />
-      )}
-      />
-      <Route
-        path="/orders"
-        element={(
-            <OrderPage />
-      )}
-      />
-      <Route
-        path="/messages"
-        element={(
-            <DmPage />
-      )}
-      />
-        <Route path="/creator-profile" element={<ViewCreator />}>
+        <Route exact path="/" element={<LandingPage />} />
+        <Route path="/creator-homepage" element={(
+            <ProtectedRoute>
+                <CreatorHomePage />
+            </ProtectedRoute>)}>
+            <Route path="posts" element={<PostList posts = {samplePosts}/>}/>
+            <Route path="content" element={(<ContentPage />)}/>
+            <Route path="orders" element={(<OrderPage />)}/>
+            <Route path="messages" element={(<DmPage />)}/>
+        </Route>
+        <Route path="/creator-profile" element={(
+            <ProtectedRoute>
+                <ViewCreator /> 
+            </ProtectedRoute>)}>
             <Route path="about-creator" element={<About />} />
             <Route path="content-list" element={<ContentList contentData={contentData} />} />
             <Route path="posts" element={<CreatorPostList posts = {samplePosts}/>} />
