@@ -6,6 +6,7 @@ import Follow from './Follow/Follow';
 import FavoritedBy from './FavoritedBy/FavoritedBy';
 
 function CreatorHeader({ creator }) {
+
     return (
       <div className="creator">
         <Avatar src={creator.avatar} alt={`${creator.username}'s Avatar`} />

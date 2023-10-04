@@ -19,7 +19,7 @@ function DmPage() {
         },
         // Add more DMs as needed
       ];
-      
+
   return (
     <div>
         <DMList messages= {messages} />
@@ -28,3 +28,5 @@ function DmPage() {
 }
 
 export default DmPage
+
+//just checking

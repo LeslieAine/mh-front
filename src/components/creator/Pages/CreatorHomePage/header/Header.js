@@ -6,7 +6,7 @@ function Header() {
 
   const creator = {
     username: 'example_user',
-    // avatar: 'user_avatar.jpg',
+    avatar: 'user_avatar.jpg',
     points: 1000,
   };
 
