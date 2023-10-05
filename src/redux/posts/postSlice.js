@@ -7,14 +7,55 @@ const initialState = {
   posts: [],
   status: 'idle',
   error: null,
+  selectedPost: null, // Initialize selectedPost as null
 };
 
-// Define an asynchronous thunk for fetching posts from an API, for example
+// Define an asynchronous thunk for fetching posts from your Rails API
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-  const response = await fetch('/api/posts'); // Replace with your API endpoint
-  const data = await response.json();
-  return data;
-});
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/posts'); // Use your Rails API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch posts');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  });
+
+  export const addNewPost = createAsyncThunk('posts/addNewPost', async (postData) => {
+    try {
+      const response = await fetch('http://localhost:3000/api/v1/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ post: postData }), // Send post data in the "post" attribute
+      });
+      if (!response.ok) {
+        throw new Error('Failed to add a new post');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  });
+
+  // Define an asynchronous thunk for fetching a post by ID from your Rails API
+export const fetchPostById = createAsyncThunk('posts/fetchPostById', async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`); // Use your Rails API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch the post');
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  });
 
 const postSlice = createSlice({
   name: 'posts',
@@ -51,6 +92,20 @@ const postSlice = createSlice({
         state.posts = action.payload;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+
+      // Add a new case for fetchPostById
+      .addCase(fetchPostById.pending, (state) => {
+        state.status = 'loading'; // You can use a separate loading state if needed
+      })
+      .addCase(fetchPostById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // Assuming you have a separate selectedPost state to store the fetched post
+        state.selectedPost = action.payload;
+      })
+      .addCase(fetchPostById.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

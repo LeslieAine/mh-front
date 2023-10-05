@@ -13,7 +13,7 @@ const store = configureStore({
     authentication: authReducer,
     content: contentReducer,
     favorites: favoritesReducer,
-    post: postReducer,
+    posts: postReducer,
     purchase: purchaseReducer,
     messages: messagesReducer
     // Add other reducers as needed
