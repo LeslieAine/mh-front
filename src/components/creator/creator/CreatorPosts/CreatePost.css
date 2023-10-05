@@ -1,0 +1,45 @@
+/* CreatePost.css */
+.create-post {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .create-post button {
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .create-post button:hover {
+    background-color: #1991db;
+  }
+  
+  .create-post form {
+    margin-top: 10px;
+  }
+  
+  .create-post textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+  }
+  
+  .create-post button[type="submit"] {
+    background-color: #1da1f2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .create-post button[type="submit"]:hover {
+    background-color: #1991db;
+  }
+  
