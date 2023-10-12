@@ -63,7 +63,7 @@ const contentData = [
             <ProtectedRoute>
                 <CreatorHomePage />
             </ProtectedRoute>)}>
-            <Route path="posts" element={<PostList />}/>
+            <Route path="posts" element={<CreatorPostList />}/>
             <Route path="content" element={(<ContentPage />)}/>
             <Route path="orders" element={(<OrderPage />)}/>
             <Route path="messages" element={(<DmPage />)}/>
