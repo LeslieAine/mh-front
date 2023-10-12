@@ -108,6 +108,15 @@ const LoginFormCreator = () => {
         navigate('/creator-homepage/posts');
       }
     });
+
+    // dispatch(loginUser({ user: credentials })).then((action) => {
+    //   if (action.payload.user) {
+    //     // Store the JWT token in local storage
+    //     const token = action.payload.token;
+    //     localStorage.setItem('token', token);
+    //     navigate('/creator-homepage/posts');
+    //   }
+    // });
   };
 
   // Function to toggle between login and signup modes
