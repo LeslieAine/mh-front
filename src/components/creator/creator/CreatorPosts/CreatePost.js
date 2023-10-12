@@ -1,6 +1,6 @@
 // CreatePost.js
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from '../../../../redux/posts/postSlice';
 
 import './CreatePost.css'; // Import your CSS file
@@ -8,12 +8,15 @@ import './CreatePost.css'; // Import your CSS file
 function CreatePost() {
   const [isOpen, setIsOpen] = useState(false);
   const [postContent, setPostContent] = useState('');
+  const { user } = useSelector((state) => state.authentication);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const post = { content: postContent, user_id: user.status.data.id };
     if (postContent.trim() !== '') {
-      dispatch(addPost({ content: postContent }));
+        // console.log(newpost)
+      dispatch(addPost({ post }));
       setPostContent('');
       setIsOpen(false);
     }
