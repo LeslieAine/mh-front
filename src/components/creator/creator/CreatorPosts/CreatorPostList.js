@@ -23,13 +23,16 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from '../../../../redux/posts/postSlice'; // Import the fetchPosts action
+import { Link } from 'react-router-dom';
+import { fetchPosts } from '../../../../redux/posts/postsSlice'; // Import the fetchPosts action
+import ReactionsBar from './ReactionsBar/ReactionsBar';
 
-import CreatorPostCard from './CreatorPostCard';
+// import CreatorPostCard from './CreatorPostCard';
 
 function CreatorPostList() {
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts.posts); // Assuming your Redux state structure
+  const data = useSelector((state) => state.posts); // from Redux state structure
+//   console.log(data); 
 
   useEffect(() => {
     // Dispatch the fetchPosts action when the component mounts
@@ -38,12 +41,34 @@ function CreatorPostList() {
 
   return (
     <div className="post-list">
-      {posts.map((post) => (
-        <CreatorPostCard key={post.id} post={post} />
-      ))}
+      {data.isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        data.posts && data.posts.map((post) => (
+          <CreatorPostCard key={post.id} post={post} />
+        ))
+      )}
     </div>
   );
 }
 
 export default CreatorPostList;
+
+const CreatorPostCard = ({ post }) => {
+    return (
+      <Link to={`/posts/${post.id}`} className="post-card">
+        <div className="postcard">
+          <div className="user-info">
+            <img className="post-card-avatar" src={post.user.avatar} alt={`${post.user.username}'s Avatar`} />
+            <span className="post-card-username">{post.user.username}</span>
+          </div>
+          <div className="content">
+            <p>{post.content}</p>
+          </div>
+          <ReactionsBar />
+        </div>
+      </Link>
+    );
+  }
+  
 

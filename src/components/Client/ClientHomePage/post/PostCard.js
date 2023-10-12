@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { fetchPostById } from '../../../../redux/posts/postSlice'; // Import the fetchPostById action
+import { fetchPost } from '../../../../redux/posts/postSlice'; // Import the fetchPostById action
 
 import ReactionsBar from './ReactionsBar/ReactionsBar';
 import './PostCard.css';
@@ -13,10 +13,10 @@ function PostCard({ postId }) {
 
   useEffect(() => {
     // Dispatch the fetchPostById action when the component mounts
-    dispatch(fetchPostById(postId));
+    dispatch(fetchPost(postId));
   }, [dispatch, postId]);
 
-  if (!post) {
+  if (!post || !post.user) {
     // Handle the case where the post is not available yet (e.g., still loading)
     return null;
   }
