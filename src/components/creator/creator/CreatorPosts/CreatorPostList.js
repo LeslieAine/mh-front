@@ -59,8 +59,8 @@ const CreatorPostCard = ({ post }) => {
       <Link to={`/posts/${post.id}`} className="post-card">
         <div className="postcard">
           <div className="user-info">
-            <img className="post-card-avatar" src={post.user.avatar} alt={`${post.user.username}'s Avatar`} />
-            <span className="post-card-username">{post.user.username}</span>
+            <img className="post-card-avatar" src={post.creator.avatar} alt={`${post.creator.username}'s Avatar`} />
+            <span className="post-card-username">{post.creator.username}</span>
           </div>
           <div className="content">
             <p>{post.content}</p>
