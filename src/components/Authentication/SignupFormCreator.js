@@ -4,16 +4,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/authentication/AuthenticationSlice';
-import './LoginForm.css';
+import { signupCreator } from '../../redux/authentication/AuthCreatorSlice';
+import './SignupForm.css';
 
-const LoginForm = ({ toggleForm }) => {
+const SignupFormCreator = ({ toggleForm }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isLoading, error } = useSelector((state) => state.authentication);
+  const { creator, isLoading, error } = useSelector((state) => state.authentication);
   const [credentials, setCredentials] = useState({
+    username: '',
     email: '',
     password: '',
+    role: 'creator'
   });
 
   const handleInputChange = (e) => {
@@ -23,11 +25,11 @@ const LoginForm = ({ toggleForm }) => {
     });
   };
 
-  const handleLogin = (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ user: credentials })).then(() => {
-      if (user) {
-        navigate('/houses');
+    dispatch(signupCreator({ creator: credentials })).then(() => {
+      if (creator) {
+        navigate('/home');
       }
     });
   };
@@ -37,7 +39,14 @@ const LoginForm = ({ toggleForm }) => {
   }
 
   return (
-    <form className="login-form" onSubmit={handleLogin}>
+    <form className="signup-form" onSubmit={handleSignup}>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        value={credentials.name}
+        onChange={handleInputChange}
+      />
       <input
         type="email"
         name="email"
@@ -52,15 +61,14 @@ const LoginForm = ({ toggleForm }) => {
         value={credentials.password}
         onChange={handleInputChange}
       />
-
-      <button type="submit">Login</button>
-      {error && <p>{error}</p>}
+      <button type="submit">Signup</button>
+      {error && <p>{error.message}</p>}
       <small className="prompt">
-        Dont have an account?
-        <span onClick={toggleForm}> Signup</span>
+        Already have an account?
+        <span onClick={toggleForm}> Signin</span>
       </small>
     </form>
   );
 };
 
-export default LoginForm;
+export default SignupFormCreator;

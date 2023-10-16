@@ -4,17 +4,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signupUser } from '../../redux/authentication/AuthenticationSlice';
+import { signupClient } from '../../redux/authentication/AuthClientSlice';
 import './SignupForm.css';
 
-const SignupForm = ({ toggleForm }) => {
+const SignupFormClient = ({ toggleForm }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isLoading, error } = useSelector((state) => state.authentication);
+  const { client, isLoading, error } = useSelector((state) => state.authentication);
   const [credentials, setCredentials] = useState({
     username: '',
     email: '',
     password: '',
+    role: 'client'
   });
 
   const handleInputChange = (e) => {
@@ -26,8 +27,8 @@ const SignupForm = ({ toggleForm }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    dispatch(signupUser({ user: credentials })).then(() => {
-      if (user) {
+    dispatch(signupClient({ client: credentials })).then(() => {
+      if (client) {
         navigate('/home');
       }
     });
@@ -70,4 +71,4 @@ const SignupForm = ({ toggleForm }) => {
   );
 };
 
-export default SignupForm;
+export default SignupFormClient;

@@ -1,11 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const loginUser = createAsyncThunk(
+export const loginCreator = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:3000/users/sign_in', credentials);
+      const response = await axios.post('http://localhost:3000/creators/sign_in', credentials);
+      const token = response.data.status.token;
+
+  // Store the token in local storage
+    localStorage.setItem('token', token);
+    // console.log(response.data.status.token)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const signupCreator = createAsyncThunk(
+  'auth/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('http://localhost:3000/creators/', credentials);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -13,19 +30,7 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-export const signupUser = createAsyncThunk(
-  'auth/login',
-  async (credentials, { rejectWithValue }) => {
-    try {
-      const response = await axios.post('http://localhost:3000/users/', credentials);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
-  },
-);
-
-export const logoutUser = createAsyncThunk(
+export const logoutCreator = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
@@ -37,49 +42,49 @@ export const logoutUser = createAsyncThunk(
   },
 );
 
-const getUserFromLocalStorage = () => {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
+const getCreatorFromLocalStorage = () => {
+  const creator = localStorage.getItem('creator');
+  return creator ? JSON.parse(creator) : null;
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: getUserFromLocalStorage(),
+    creator: getCreatorFromLocalStorage(),
     isLoading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginCreator.pending, (state) => {
         const tempState = state;
         tempState.isLoading = true;
         tempState.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
+      .addCase(loginCreator.fulfilled, (state, { payload }) => {
         const tempState = state;
         tempState.isLoading = false;
-        tempState.user = payload;
-        localStorage.setItem('user', JSON.stringify(payload));
+        tempState.creator = payload;
+        localStorage.setItem('creator', JSON.stringify(payload));
       })
-      .addCase(loginUser.rejected, (state, { payload }) => {
+      .addCase(loginCreator.rejected, (state, { payload }) => {
         const tempState = state;
         tempState.isLoading = false;
         tempState.error = payload;
       })
-      .addCase(logoutUser.pending, (state) => {
+      .addCase(logoutCreator.pending, (state) => {
         const tempState = state;
         tempState.isLoading = true;
         tempState.error = null;
       })
-      .addCase(logoutUser.fulfilled, (state) => {
+      .addCase(logoutCreator.fulfilled, (state) => {
         const tempState = state;
         tempState.isLoading = false;
-        tempState.user = null;
-        localStorage.removeItem('user');
+        tempState.creator = null;
+        localStorage.removeItem('creator');
       })
-      .addCase(logoutUser.rejected, (state, { payload }) => {
+      .addCase(logoutCreator.rejected, (state, { payload }) => {
         const tempState = state;
         tempState.isLoading = false;
         tempState.error = payload;

@@ -3,6 +3,7 @@ import React from 'react'
 // import CreatorHeader from '../../creator/CreatorHeader'
 import Header from './header/Header'
 import { Outlet } from 'react-router-dom'
+import CreatePost from '../../creator/CreatorPosts/CreatePost'
 // import PostList from './post/PostList'
 // import samplePosts from './post/SamplePosts'
 // import Footer from '../../NavBar/Footer/Footer'
@@ -21,6 +22,7 @@ function CreatorHomePage() {
         <Link to="/creator-profile/posts">Posts</Link> */}
         {/* <CreatorHeader /> */}
         <Header />
+        <CreatePost />
         <Outlet />
     </div>
   )

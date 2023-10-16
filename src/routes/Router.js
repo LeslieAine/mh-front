@@ -63,7 +63,7 @@ const contentData = [
             <ProtectedRoute>
                 <CreatorHomePage />
             </ProtectedRoute>)}>
-            <Route path="posts" element={<PostList posts = {samplePosts}/>}/>
+            <Route path="posts" element={<CreatorPostList />}/>
             <Route path="content" element={(<ContentPage />)}/>
             <Route path="orders" element={(<OrderPage />)}/>
             <Route path="messages" element={(<DmPage />)}/>
@@ -74,7 +74,7 @@ const contentData = [
             </ProtectedRoute>)}>
             <Route path="about-creator" element={<About />} />
             <Route path="content-list" element={<ContentList contentData={contentData} />} />
-            <Route path="posts" element={<CreatorPostList posts = {samplePosts}/>} />
+            <Route path="posts" element={<CreatorPostList />} />
         </Route>
       <Route path="*" element={<h1>Not Found</h1>} />
     </Routes>

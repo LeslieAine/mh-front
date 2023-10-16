@@ -1,73 +1,95 @@
 import React, { useState } from 'react';
-import './CreateContent.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { addContent } from '../../../../redux/content/contentSlice';
+import './CreateContent.css';
 
-function CreateContent({ onClose, onSubmit }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [tags, setTags] = useState('');
-  const [isPaid, setIsPaid] = useState(false);
+const CreateContent = () => {
+  const dispatch = useDispatch();
+  const { creator } = useSelector((state) => state.authentication);
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
+  const [form, setForm] = useState({
+    title: '',
+    description: '',
+    isPaid: false,
+    price: 1,
+    url: '',
+    creator_id: creator.status.data.id
+  });
+
+  const openForm = () => {
+    setIsFormOpen(true);
   };
 
-  const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+  const closeForm = () => {
+    setIsFormOpen(false);
   };
 
-  const handleTagsChange = (e) => {
-    setTags(e.target.value);
+  const handleFormSubmit = (ev) => {
+    ev.preventDefault();
+    const formData = { content: form, creator_id: creator.status.data.id };
+
+    dispatch(addContent(formData));
+    setForm({
+      title: '',
+      description: '',
+      isPaid: false,
+      price: 1,
+      url: '',
+      creator_id: creator.status.data.id
+    });
+    closeForm();
+
+    window.location.reload();
+
   };
 
-  const handleIsPaidChange = (e) => {
-    setIsPaid(e.target.checked);
-  };
-
-  const handleSubmit = () => {
-    // Create a content object with the form data
-    const content = {
-      title,
-      description,
-      tags,
-      isPaid,
-    };
-
-    // Pass the content object to the onSubmit callback
-    onSubmit(content);
-
-    // Close the form
-    onClose();
-  };
+  const handleInput = (ev) => setForm({
+    ...form,
+    [ev.target.name]: ev.target.value,
+  });
 
   return (
-    <div className="content-creation-form">
-        <button className="close-button" onClick={onClose}>
-            Close
-        </button>
-      <h2>Create New Content</h2>
-      <form>
-        <div className="form-group">
-          <label>Title:</label>
-          <input type="text" value={title} onChange={handleTitleChange} />
+    <div className="content-creation-container">
+      <button className="open-button" onClick={openForm}>
+        Create Content
+      </button>
+
+      {isFormOpen && (
+        <div className="content-creation-modal">
+          <div className="content-creation-form">
+            <button className="close-button" onClick={closeForm}>
+              Close
+            </button>
+            <h2>Create New Content</h2>
+            <form onSubmit={handleFormSubmit}>
+              <div className="form-group">
+                <label>Title:</label>
+                <input name="title" type="text" value={form.title} onChange={handleInput} />
+              </div>
+              <div className="form-group">
+                <label>Description:</label>
+                <textarea name="description" value={form.description} onChange={handleInput} />
+              </div>
+              <div className="form-group">
+                <label>Is Paid:</label>
+                <input name="isPaid" type="checkbox" checked={form.isPaid} onChange={handleInput} />
+              </div>
+              <div className="form-group">
+                <label>Price:</label>
+                <input name="price" type="number" value={form.price} onChange={handleInput} />
+              </div>
+              <div className="form-group">
+                <label>Url:</label>
+                <input name="url" type="text" value={form.url} onChange={handleInput} />
+              </div>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
         </div>
-        <div className="form-group">
-          <label>Description:</label>
-          <textarea value={description} onChange={handleDescriptionChange} />
-        </div>
-        <div className="form-group">
-          <label>Tags:</label>
-          <input type="text" value={tags} onChange={handleTagsChange} />
-        </div>
-        <div className="form-group">
-          <label>Is Paid:</label>
-          <input type="checkbox" checked={isPaid} onChange={handleIsPaidChange} />
-        </div>
-        <button type="button" onClick={handleSubmit}>
-          Submit
-        </button>
-      </form>
+      )}
     </div>
   );
-}
+};
 
 export default CreateContent;
