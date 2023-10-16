@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const loginUser = createAsyncThunk(
+export const loginClient = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:3000/users/sign_in', credentials);
+      const response = await axios.post('http://localhost:3000/clients/sign_in', credentials);
       const token = response.data.status.token;
 
   // Store the token in local storage
@@ -18,11 +18,11 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-export const signupUser = createAsyncThunk(
+export const signupClient = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:3000/users/', credentials);
+      const response = await axios.post('http://localhost:3000/clients/', credentials);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -30,7 +30,7 @@ export const signupUser = createAsyncThunk(
   },
 );
 
-export const logoutUser = createAsyncThunk(
+export const logoutClient = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
@@ -42,49 +42,49 @@ export const logoutUser = createAsyncThunk(
   },
 );
 
-const getUserFromLocalStorage = () => {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
+const getClientFromLocalStorage = () => {
+  const client = localStorage.getItem('client');
+  return client ? JSON.parse(client) : null;
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: getUserFromLocalStorage(),
+    client: getClientFromLocalStorage(),
     isLoading: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginClient.pending, (state) => {
         const tempState = state;
         tempState.isLoading = true;
         tempState.error = null;
       })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
+      .addCase(loginClient.fulfilled, (state, { payload }) => {
         const tempState = state;
         tempState.isLoading = false;
-        tempState.user = payload;
-        localStorage.setItem('user', JSON.stringify(payload));
+        tempState.client = payload;
+        localStorage.setItem('client', JSON.stringify(payload));
       })
-      .addCase(loginUser.rejected, (state, { payload }) => {
+      .addCase(loginClient.rejected, (state, { payload }) => {
         const tempState = state;
         tempState.isLoading = false;
         tempState.error = payload;
       })
-      .addCase(logoutUser.pending, (state) => {
+      .addCase(logoutClient.pending, (state) => {
         const tempState = state;
         tempState.isLoading = true;
         tempState.error = null;
       })
-      .addCase(logoutUser.fulfilled, (state) => {
+      .addCase(logoutClient.fulfilled, (state) => {
         const tempState = state;
         tempState.isLoading = false;
-        tempState.user = null;
-        localStorage.removeItem('user');
+        tempState.client = null;
+        localStorage.removeItem('client');
       })
-      .addCase(logoutUser.rejected, (state, { payload }) => {
+      .addCase(logoutClient.rejected, (state, { payload }) => {
         const tempState = state;
         tempState.isLoading = false;
         tempState.error = payload;
