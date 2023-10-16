@@ -74,7 +74,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/authentication/AuthenticationSlice';
+import { loginCreator } from '../../redux/authentication/AuthCreatorSlice';
 import './LoginForm.css';
 
 // Import the SignupFormCreator component
@@ -83,7 +83,7 @@ import SignupFormCreator from './SignupFormCreator'; // Replace with the correct
 const LoginFormCreator = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, isLoading, error } = useSelector((state) => state.authentication);
+  const { creator, isLoading, error } = useSelector((state) => state.authentication);
   
   // State to track login/signup mode
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -103,8 +103,8 @@ const LoginFormCreator = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ user: credentials })).then(() => {
-      if (user) {
+    dispatch(loginCreator({ creator: credentials })).then(() => {
+      if (creator) {
         navigate('/creator-homepage/posts');
       }
     });

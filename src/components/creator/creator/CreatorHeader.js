@@ -5,14 +5,14 @@ import Avatar from './Avatar/Avatar';
 import Points from './Points/Points';
 import Follow from './Follow/Follow';
 import FavoritedBy from './FavoritedBy/FavoritedBy';
-import { logoutUser } from '../../../redux/authentication/AuthenticationSlice';
+import { logoutCreator } from '../../../redux/authentication/AuthCreatorSlice';
 
 function CreatorHeader({ creator }) {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    localStorage.removeItem('user');
+    dispatch(logoutCreator());
+    localStorage.removeItem('creator');
     window.location.reload();
   };
 
