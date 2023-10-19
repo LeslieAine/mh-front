@@ -27,33 +27,33 @@ const AppRouter = () => {
 
     return children;
   };
-const contentData = [
-    {
-      title: 'Song Title 1',
-      numberOfBuys: 100,
-      price: '$0.99',
-      length: '3:45',
-    },
-    {
-      title: 'Song Title 2',
-      numberOfBuys: 85,
-      price: '$1.25',
-      length: '4:12',
-    },
-    {
-      title: 'Podcast Episode 1',
-      numberOfBuys: 50,
-      price: '$0.00 (Free)',
-      length: '25:30',
-    },
-    {
-      title: 'Ebook - Introduction to React',
-      numberOfBuys: 120,
-      price: '$9.99',
-      length: '150 pages',
-    },
-    // Add more content items as needed
-  ];
+// const contentData = [
+//     {
+//       title: 'Song Title 1',
+//       numberOfBuys: 100,
+//       price: '$0.99',
+//       length: '3:45',
+//     },
+//     {
+//       title: 'Song Title 2',
+//       numberOfBuys: 85,
+//       price: '$1.25',
+//       length: '4:12',
+//     },
+//     {
+//       title: 'Podcast Episode 1',
+//       numberOfBuys: 50,
+//       price: '$0.00 (Free)',
+//       length: '25:30',
+//     },
+//     {
+//       title: 'Ebook - Introduction to React',
+//       numberOfBuys: 120,
+//       price: '$9.99',
+//       length: '150 pages',
+//     },
+//     // Add more content items as needed
+//   ];
 
 
   return (
@@ -73,7 +73,7 @@ const contentData = [
                 <ViewCreator /> 
             </ProtectedRoute>)}>
             <Route path="about-creator" element={<About />} />
-            <Route path="content-list" element={<ContentList contentData={contentData} />} />
+            <Route path="content-list" element={<ContentList />} />
             <Route path="posts" element={<CreatorPostList />} />
         </Route>
       <Route path="*" element={<h1>Not Found</h1>} />
