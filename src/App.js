@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -9,12 +9,12 @@ import NavBar from './components/creator/NavBar/NavBar';
 
 const App = () => (
   <div className="app-container">
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
       <section className="main-content">
         <AppRouter />
       </section>
       <NavBar />
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </div>
 );
 

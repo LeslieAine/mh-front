@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signupClient } from '../../redux/authentication/AuthClientSlice';
+import { signupUser } from '../../redux/authentication/AuthenticationSlice';
 import './SignupForm.css';
 
 const SignupFormClient = ({ toggleForm }) => {
@@ -27,7 +27,7 @@ const SignupFormClient = ({ toggleForm }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    dispatch(signupClient({ client: credentials })).then(() => {
+    dispatch(signupUser({ user: credentials })).then(() => {
       if (client) {
         navigate('/home');
       }
