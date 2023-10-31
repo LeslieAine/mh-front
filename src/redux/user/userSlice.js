@@ -1,35 +1,59 @@
-// import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+// import axios from 'axios';
 
-// const initialState = {
-//   isAuthenticated: false,
-//   userId: null,
-//   userName: '',
-//   balance: 0,
-// };
+const initialState = {
+    isLoading: false,
+    success: false,
+    error: null,
+    list: [],
+    user: {},
+    response: null,
+};
 
-// const userSlice = createSlice({
-//   name: 'user',
-//   initialState,
-//   reducers: {
-//     loginUser: (state, action) => {
-//       state.isAuthenticated = true;
-//       state.userId = action.payload.userId;
-//       state.userName = action.payload.userName;
-//     },
-//     logoutUser: (state) => {
-//       state.isAuthenticated = false;
-//       state.userId = null;
-//       state.userName = '';
-//     },
-//     updateUserInfo: (state, action) => {
-//       state.userName = action.payload.userName;
-//     },
-//     updateBalance: (state, action) => {
-//         state.balance = action.payload;
-//       },
-//   },
-// });
+export const fetchUser = createAsyncThunk('user/fetchUser', async (id) => {
+    const url = `http://localhost:3000/api/v1/users/${id}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  });
 
-// export const { loginUser, logoutUser, updateUserInfo, updateBalance } = userSlice.actions;
 
-// export default userSlice.reducer;
+  const userSlice = createSlice({
+    name: 'user',
+    initialState,
+    reducers: {
+  
+      resetErrors: (state) => ({
+          ...state,
+          error: '',
+          isLoading: false,
+          success: false,
+          response: null,
+        }),
+    },
+    extraReducers: (builder) => {
+      builder
+        .addCase(fetchUser.pending, (state) => ({
+          ...state,
+        isLoading: true,
+        error: '',
+        }))
+        .addCase(fetchUser.fulfilled, (state, action) => ({
+          ...state,
+        isLoading: false,
+        success: true,
+          user: action.payload,
+        }))
+        .addCase(fetchUser.rejected, (state, action) => ({
+          ...state,
+        isLoading: false,
+        error: action.payload,
+        }))
+    }
+  
+  });
+  
+  export const { resetErrors } = userSlice.actions;
+  
+  export default userSlice.reducer;
+  

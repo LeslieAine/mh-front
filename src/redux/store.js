@@ -1,24 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import userReducer from './user/userSlice';
+import userReducer from './user/userSlice';
+import usersReducer from './user/usersSlice';
 import authReducer from './authentication/AuthenticationSlice';
 import contentReducer from './content/contentSlice'
 import favoritesReducer from './favorite/favoriteSlice'
 import postsReducer from './posts/postsSlice'
 import postReducer from './posts/postSlice'
 import purchaseReducer from './purchase/purchaseSlice';
-import messagesReducer from './messages/messagesSlice';
+// import messagesReducer from './messages/messagesSlice';
 import contentsSlice from './content/contentsSlice';
 
 const store = configureStore({
   reducer: {
-    // user: userReducer,
+    user: userReducer,
+    users: usersReducer,
     authentication: authReducer,
     content: contentReducer,
     contents: contentsSlice,
     favorites: favoritesReducer,
     posts: postsReducer,
-    purchase: purchaseReducer,
-    messages: messagesReducer,
+    // purchase: purchaseReducer,
+    // messages: messagesReducer,
     post: postReducer,
     // Add other reducers as needed
   },
