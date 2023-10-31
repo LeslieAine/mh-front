@@ -5,7 +5,7 @@ import './CreateContent.css';
 
 const CreateContent = () => {
   const dispatch = useDispatch();
-  const { creator } = useSelector((state) => state.authentication);
+  const { user } = useSelector((state) => state.authentication);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   const [form, setForm] = useState({
@@ -14,7 +14,7 @@ const CreateContent = () => {
     isPaid: false,
     price: 1,
     url: '',
-    creator_id: creator.status.data.id
+    user_id: user.status.data.id
   });
 
   const openForm = () => {
@@ -27,7 +27,7 @@ const CreateContent = () => {
 
   const handleFormSubmit = (ev) => {
     ev.preventDefault();
-    const formData = { content: form, creator_id: creator.status.data.id };
+    const formData = { content: form, user_id: user.status.data.id };
 
     dispatch(addContent(formData));
     setForm({
@@ -36,7 +36,7 @@ const CreateContent = () => {
       isPaid: false,
       price: 1,
       url: '',
-      creator_id: creator.status.data.id
+      user_id: user.status.data.id
     });
     closeForm();
 
