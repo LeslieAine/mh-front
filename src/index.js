@@ -5,10 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import store from './redux/store'
-import actionCable from 'actioncable';
+// import actionCable from 'actioncable';
 
-const CableApp = {}
-CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
+// const CableApp = {}
+// CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,10 +18,10 @@ root.render(
   <BrowserRouter>
     <Provider store={store}>
       <React.StrictMode>
-        <App cable={CableApp.cable} />
+        <App />
       </React.StrictMode>
     </Provider>
-</BrowserRouter>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
