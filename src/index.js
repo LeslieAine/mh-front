@@ -5,10 +5,25 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import store from './redux/store'
-// import actionCable from 'actioncable';
+import actionCable from 'actioncable';
+import { ThemeProvider, StyleReset } from 'atomize';
+import { Provider as StyletronProvider, DebugEngine } from "styletron-react";
+import { Client as Styletron } from "styletron-engine-atomic";
 
-// const CableApp = {}
-// CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
+const CableApp = {}
+CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
+
+const theme = {
+  colors: {
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
+
+const debug =
+  process.env.NODE_ENV === "production" ? void 0 : new DebugEngine();
+const engine = new Styletron();
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,11 +31,16 @@ root.render(
   //   <App />
   // </Provider>,
   <BrowserRouter>
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <StyletronProvider value={engine} debug={debug} debugAfterHydration>
+          <React.StrictMode>
+            <StyleReset />
+            <App />
+          </React.StrictMode>
+        </StyletronProvider>
+      </Provider>
+    </ThemeProvider>
   </BrowserRouter>
 );
 
