@@ -1,18 +1,14 @@
 import React from 'react'
 import './Header.css'
 import CreatorHeader from '../../../creator/CreatorHeader'
+import { useSelector } from 'react-redux';
 
 function Header() {
-
-  const creator = {
-    username: 'example_user',
-    avatar: 'user_avatar.jpg',
-    points: 1000,
-  };
+  const user = useSelector((state) => state.authentication.user) || JSON.parse(localStorage.getItem('user'));
 
   return (
     <div>
-        <CreatorHeader creator={creator} />
+        <CreatorHeader user={user} />
     </div>
   )
 }
