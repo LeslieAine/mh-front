@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Text } from "atomize";
 
 const Message = ({ message }) => {
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.authentication.user.status.data);
 
   const checkUser = () => {
     if (message.user_id === user.id) {

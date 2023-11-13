@@ -1,16 +1,16 @@
 import React from "react";
 import Message from "./Message";
-import { ActionCableConsumer } from "react-actioncable-provider";
+// import { ActionCableConsumer } from "react-actioncable-provider";
 
-export default function Messages({
+const Messages = ({
   messages,
   receiveMessage,
   user,
   loadConversations,
-}){
-  const sortedMessages = messages.sort(
-    (a, b) => new Date(b.created_at) - new Date(a.created_at)
-  );
+}) => {
+//   const sortedMessages = messages.sort(
+//     (a, b) => new Date(b.created_at) - new Date(a.created_at)
+//   );
   const handleReceivedMessages = (data) => {
     receiveMessage(data);
     loadConversations(user.id);
@@ -18,16 +18,18 @@ export default function Messages({
   const id = messages.length > 0 ? messages[0].conversation_id : 0;
   return (
     <>
-      <ActionCableConsumer
+      {/* <ActionCableConsumer
         channel={{
           channel: "ChatsChannel",
           room_id: id,
         }}
         onReceived={handleReceivedMessages}
-      />
-      {sortedMessages.map((message) => (
+      /> */}
+      {messages.map((message) => (
         <Message key={message.id} message={message} />
       ))}
     </>
   );
 }
+
+export default Messages;
