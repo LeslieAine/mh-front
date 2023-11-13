@@ -10,7 +10,7 @@ const ConversationForm = () => {
   });
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.authentication.user.status.data);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
