@@ -8,43 +8,66 @@ import {
   receiveMessage,
   // markAsSeen,
 } from "../../redux/conversations/conversationSlice";
+import { useParams } from "react-router-dom";
 
-const Conversation = ({ match }) => {
+
+const Conversation = () => {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.currentUser);
-  const conversations = useSelector((state) => state.conversations.userConversations);
+  const user = useSelector((state) => state.authentication.user.status.data)
+  const conversations = useSelector((state) => state.conversation.userConversations);
 
+  const { userId, conversationId } = useParams();
+
+  console.log("User ID:", userId);
+  console.log("Conversation ID:", conversationId);
+  // console.log("Props:", routerProps);
+
+  // const findConversation = () => {
+  //   return conversations.find((c) => c.id === parseInt(routerProps.match.params.id));
+  // };
   const findConversation = () => {
-    return conversations.find((c) => c.id === parseInt(match.params.id));
+   const conversation = conversations.find((c) => c.id === parseInt(conversationId));
+  // const conversation = conversations.find((c) => c.id === 4);
+    return conversation ? conversation.chats : [];
   };
+
+  // const handleInput = (ev) => setForm({
+  //   ...form,
+  //   [ev.target.name]: ev.target.value,
+  // });
 
   const handleChange = (event) => {
     setInput(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const message = {
-      content: input,
-      conversation_id: match.params.id,
-      user_id: user.id,
-    };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const message = {
+  //     content: input,
+  //     conversation_id: routerProps.match.params.id,
+  //     user_id: user.id,
+  //   };
 
-    if (input.length > 0) {
-      dispatch(sendMessage());
-      setInput("");
-    }
-  };
+  //   if (input.length > 0) {
+  //     dispatch(sendMessage());
+  //     setInput("");
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   console.log(user.id)
+  //   dispatch(loadConversations(user.id));
+  // }, [dispatch, user.id]);
   useEffect(() => {
+    console.log(user.id)
     dispatch(loadConversations(user.id));
   }, [dispatch, user.id]);
 
-  const handleReceivedMessages = (data) => {
-    dispatch(loadConversations(user.id));
-    dispatch(receiveMessage(data));
-  };
+  // const handleReceivedMessages = (data) => {
+  //   dispatch(loadConversations(user.id));
+  //   dispatch(receiveMessage(data));
+  // };
 
   return (
     <Div w="100%">
@@ -58,19 +81,25 @@ const Conversation = ({ match }) => {
         flexDir="column-reverse"
         overflow="auto"
       >
-        <Messages
+        <p>testing to view conversation</p>
+        {/* <Messages
           receiveMessage={handleReceivedMessages}
           messages={
             findConversation()
-              ? findConversation().messages
+              ? findConversation().chats
               : [{ id: 0, content: "No Messages" }]
           }
           user={user}
           loadConversations={() => dispatch(loadConversations(user.id))}
-        />
+        /> */}
+        <Messages 
+          loadConversations={() => dispatch(loadConversations(user.id))}
+          messages={findConversation()} />
       </Div>
       <Div>
-        <form onSubmit={handleSubmit} className="message-form">
+        <form 
+        // onSubmit={handleSubmit} 
+        className="message-form">
           <Input
             placeholder="Enter a message"
             type="text"

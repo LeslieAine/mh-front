@@ -1,0 +1,97 @@
+.Conversation {
+    text-align: center;
+  }
+  
+  .form-items {
+    text-align: center;
+    background-color: lightblue;
+    margin-top: 0%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+  
+  #chat-feed {
+    grid-area: chat-feed;
+    width: 75%;
+    margin: auto;
+  }
+  
+  #messages {
+    height: 350px;
+    overflow-y: scroll;
+    background-color: lightgray;
+  }
+  
+  #chat-message {
+    margin-top: 2.5%;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 3px 3px black;
+    width: 45%;
+  }
+  
+  #chat-message h4 {
+    margin: 0;
+    padding-top: 10px;
+  }
+  
+  #chat-message img {
+    width: 20px;
+  }
+  
+  #chat-message p {
+    margin-left: 10px;
+    margin-bottom: 0;
+  }
+  
+  .current-user-message {
+    background-color: lightskyblue;
+    margin-right: 2.5%;
+    margin-left: 45%;
+  }
+  
+  .other-user-message {
+    background-color: lightgreen;
+    margin-left: 2.5%;
+  }
+  
+  
+
+
+/* Chat.css
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  
+  .chat-input {
+    display: flex;
+  }
+  
+  .chat-input input {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 5px;
+  }
+  
+  .chat-input button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+   */
