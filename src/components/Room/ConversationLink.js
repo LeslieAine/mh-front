@@ -3,30 +3,58 @@ import { Div } from 'atomize';
 import { Link } from 'react-router-dom';
 import { makeConversationLink } from '../../helpers';
 import { useDispatch } from 'react-redux';
-import { markAsSeen } from '../../actions/ConversationActions';
+import { markAsSeen } from '../../redux/conversations/conversationSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ConversationLink = ({ user, conversation }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const conversationName = () => {
     let name = '';
     conversation.users
-      ? conversation.users.map((user) => (name = name + '| ' + user.name + ' |'))
+      ? conversation.users.map((user) => (name = name + '| ' + user.username + ' |'))
       : (name = 'Nothing Here');
     return name;
   };
 
+  const conversationId = conversation.id
+  const userId = user.id
+
+//   const handleRoomClick = () => {
+//     navigate(`/creator-homepage/messages/users/45/conversations/4`);
+//   };
+
+//   console.log(user.id, conversation.id)
+
+    // const conversationId = conversation.id
+
   const handleMarkAsSeen = () => {
+    // console.log(conversation.id)
     dispatch(markAsSeen(user, conversation));
   };
 
+//   const handleClick = () => {
+//     const userId = user.id;
+//     const conversationId = conversation.id;
+
+//     // Direct the user to the conversation page
+//     onClick(userId, conversationId);
+//   };
+
+
   return (
-    <Link key={conversation.id} to={makeConversationLink(user, conversation)}>
+    <Link key={conversation.id} 
+    // to="/creator-homepage/messages/users/:userId/conversations/:conversationId"
+    to={`/creator-homepage/messages/users/${userId}/conversations/${conversationId}`} 
+    // to={/creator-homepage/messages/users/${userId}/conversations/${conversationId}} 
+    // to={`/creator-homepage/messages/users/45/conversations/4`} 
+    >
       <Div
-        onClick={handleMarkAsSeen}
+        // onClick={handleRoomClick}
         className={
-          conversation.seen ||
-          conversation.messages[conversation.messages.length - 1].user_id === user.id
+        //   conversation.seen ||
+          conversation.chats[conversation.chats.length - 1].user_id === user.id
             ? 'conversation-seen'
             : 'conversation-not-seen'
         }
