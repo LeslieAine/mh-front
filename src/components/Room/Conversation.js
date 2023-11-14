@@ -41,13 +41,13 @@ const Conversation = () => {
     setInput(event.target.value);
   };
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const message = {
-  //     content: input,
-  //     conversation_id: routerProps.match.params.id,
-  //     user_id: user.id,
-  //   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const message = {
+      content: input,
+      conversation_id: conversationId,
+      user_id: user.id,
+    };
 
   //   if (input.length > 0) {
   //     dispatch(sendMessage());
@@ -81,7 +81,7 @@ const Conversation = () => {
         flexDir="column-reverse"
         overflow="auto"
       >
-        <p>testing to view conversation</p>
+
         {/* <Messages
           receiveMessage={handleReceivedMessages}
           messages={
@@ -92,13 +92,14 @@ const Conversation = () => {
           user={user}
           loadConversations={() => dispatch(loadConversations(user.id))}
         /> */}
+        
         <Messages 
           loadConversations={() => dispatch(loadConversations(user.id))}
           messages={findConversation()} />
       </Div>
       <Div>
         <form 
-        // onSubmit={handleSubmit} 
+        onSubmit={handleSubmit} 
         className="message-form">
           <Input
             placeholder="Enter a message"
