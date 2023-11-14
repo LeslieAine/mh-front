@@ -15,21 +15,22 @@ const Conversation = () => {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authentication.user.status.data)
-  const conversations = useSelector((state) => state.conversation.userConversations);
+  const conversations = useSelector((state) => state.conversation.userConversations.data);
 
   const { userId, conversationId } = useParams();
 
-  console.log("User ID:", userId);
-  console.log("Conversation ID:", conversationId);
+  // console.log("User ID:", userId);
+  // console.log("Conversation ID:", conversationId);
   // console.log("Props:", routerProps);
 
   // const findConversation = () => {
   //   return conversations.find((c) => c.id === parseInt(routerProps.match.params.id));
   // };
   const findConversation = () => {
-   const conversation = conversations.find((c) => c.id === parseInt(conversationId));
+   const conversation = conversations.find((c) => c.id === (conversationId));
   // const conversation = conversations.find((c) => c.id === 4);
-    return conversation ? conversation.chats : [];
+    console.log(conversationId)
+    return conversation ? conversation.attributes.chats : [];
   };
 
   // const handleInput = (ev) => setForm({
@@ -44,10 +45,15 @@ const Conversation = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const message = {
-      content: input,
-      conversation_id: conversationId,
       user_id: user.id,
+      room_id: conversationId,
+      content: input
     };
+    if (input.length > 0) {
+      dispatch(sendMessage(message));
+      setInput("");
+    }
+  }
 
   //   if (input.length > 0) {
   //     dispatch(sendMessage());
@@ -60,7 +66,7 @@ const Conversation = () => {
   //   dispatch(loadConversations(user.id));
   // }, [dispatch, user.id]);
   useEffect(() => {
-    console.log(user.id)
+    // console.log(user.id)
     dispatch(loadConversations(user.id));
   }, [dispatch, user.id]);
 
@@ -92,7 +98,7 @@ const Conversation = () => {
           user={user}
           loadConversations={() => dispatch(loadConversations(user.id))}
         /> */}
-        
+
         <Messages 
           loadConversations={() => dispatch(loadConversations(user.id))}
           messages={findConversation()} />

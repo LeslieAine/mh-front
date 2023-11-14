@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { markAsSeen } from '../../redux/conversations/conversationSlice';
 import { useNavigate } from 'react-router-dom';
 
-const ConversationLink = ({ user, conversation }) => {
+const ConversationLink = ({ user, conversation, conversationId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,8 +18,10 @@ const ConversationLink = ({ user, conversation }) => {
     return name;
   };
 
-  const conversationId = conversation.id
+//   const conversationId = conversation.id
   const userId = user.id
+
+  console.log(conversation, conversationId)
 
 //   const handleRoomClick = () => {
 //     navigate(`/creator-homepage/messages/users/45/conversations/4`);
@@ -44,7 +46,7 @@ const ConversationLink = ({ user, conversation }) => {
 
 
   return (
-    <Link key={conversation.id} 
+    <Link key={conversationId} 
     // to="/creator-homepage/messages/users/:userId/conversations/:conversationId"
     to={`/creator-homepage/messages/users/${userId}/conversations/${conversationId}`} 
     // to={/creator-homepage/messages/users/${userId}/conversations/${conversationId}} 
