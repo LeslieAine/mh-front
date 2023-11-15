@@ -27,9 +27,9 @@ const Conversation = () => {
   //   return conversations.find((c) => c.id === parseInt(routerProps.match.params.id));
   // };
   const findConversation = () => {
-   const conversation = conversations.find((c) => c.id === (conversationId));
+   const conversation = conversations?.find((c) => c.id === (conversationId));
   // const conversation = conversations.find((c) => c.id === 4);
-    console.log(conversationId)
+    // console.log(conversationId)
     return conversation ? conversation.attributes.chats : [];
   };
 
@@ -65,10 +65,10 @@ const Conversation = () => {
   //   console.log(user.id)
   //   dispatch(loadConversations(user.id));
   // }, [dispatch, user.id]);
-  useEffect(() => {
-    // console.log(user.id)
-    dispatch(loadConversations(user.id));
-  }, [dispatch, user.id]);
+  // useEffect(() => {
+  //   // console.log(user.id)
+  //   dispatch(loadConversations(user.id));
+  // }, [dispatch, user.id]);
 
   // const handleReceivedMessages = (data) => {
   //   dispatch(loadConversations(user.id));
@@ -101,7 +101,8 @@ const Conversation = () => {
 
         <Messages 
           loadConversations={() => dispatch(loadConversations(user.id))}
-          messages={findConversation()} />
+          messages={findConversation()}
+          user = {user} />
       </Div>
       <Div>
         <form 
