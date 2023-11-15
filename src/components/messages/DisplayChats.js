@@ -7,23 +7,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadConversations } from "../../redux/conversations/conversationSlice";
 // import Conversations from "../Room/Conversations";
 import Header from "../../containers/Container";
+import Conversations from "../Room/Conversations";
+import { Outlet } from "react-router-dom";
 
-const DisplayChats = (cable) => {
+
+const DisplayChats = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.authentication.user.status.data);
+  const conversations = useSelector((state) => state.conversation.userConversations.data);
+
 
 //   useEffect(() => {
 //     dispatch(checkLoggedInStatus());
 //   }, [dispatch]);
 
   useEffect(() => {
-    if (user) {
       dispatch(loadConversations(user.id));
-    }
-  }, [dispatch, user]);
+  }, [dispatch, user.id]);
+// useEffect(() => {
+//     // console.log(conversations)
+//     dispatch(loadConversations());
+//   });
 
   return (
-    <Header cable={cable}/>
+    <div>
+        <Header />
+        {/* <Conversations conversations={conversations} /> */}
+        <Outlet />
+
+        {/* <p>testing the container</p> */}
+    </div>
+    
     // <Conversations />
     // <Container d="flex" justify="center">
     //   <Switch>
