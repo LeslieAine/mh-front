@@ -79,6 +79,7 @@ import './LoginForm.css';
 
 // Import the SignupFormCreator component
 import SignupFormCreator from './SignupFormCreator'; // Replace with the correct path
+import { loadConversations } from '../../redux/conversations/conversationSlice';
 
 const LoginFormCreator = () => {
   const dispatch = useDispatch();
@@ -107,6 +108,8 @@ const LoginFormCreator = () => {
       if (user) {
         navigate('/creator-homepage/posts');
       }
+
+      // dispatch(loadConversations(user.id))
     });
 
     // dispatch(loginUser({ user: credentials })).then((action) => {
