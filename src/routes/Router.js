@@ -20,6 +20,8 @@ import LandingPage from '../components/Pages/LandingPage/Landing';
 import actionCable from 'actioncable';
 import DisplayChats from '../components/messages/DisplayChats';
 import Conversation from '../components/Room/Conversation';
+import Conversations from '../components/Room/Conversations';
+import ConversationForm from '../components/Room/ConversationForm';
 
 
 const AppRouter = () => {
@@ -55,14 +57,16 @@ const AppRouter = () => {
             <Route path="orders" element={(<OrderPage />)}/>
             {/* <Route path="messages/*" element={(<Conversation cable={CableApp.cable} />)}/> */}
             <Route path="messages/*" element={(<DisplayChats cable={CableApp.cable}/>)}>
-                {/* <Route
+                <Route
                 // path={`/creator-homepage/messages/users/${userId}/conversations/${conversationId}`}
-                path="users/:id/conversations/:conversationId"
+                path="users/:userId/conversations/:conversationId"
                 // path="/creator-homepage/messages/users/45/conversations/5"
                 // render={(routerProps) => <Conversation {...routerProps} />}
                 element={<Conversation />}
-                children={(routerProps) => <Conversation {...routerProps} />}
-                />  */}
+                /> 
+                 <Route path=":id" element={(<Conversations />)}/>
+                 <Route path="createchat" element={(<ConversationForm />)}/>
+
             </Route>
 
         </Route>
