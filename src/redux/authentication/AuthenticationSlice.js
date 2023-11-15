@@ -10,7 +10,9 @@ export const loginUser = createAsyncThunk(
 
   // Store the token in local storage
     localStorage.setItem('token', token);
-    // console.log(response.data.status.token)
+    // dispatch(updateCurrentUser(response.data.status.data));
+    // console.log(response.data.status.data)
+    // console.log(response.data.user.data)
       return response.data
     } catch (error) {
       return rejectWithValue(error.response.data);

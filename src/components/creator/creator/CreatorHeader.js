@@ -8,6 +8,7 @@ import FavoritedBy from './FavoritedBy/FavoritedBy';
 import { logoutUser } from '../../../redux/authentication/AuthenticationSlice';
 
 function CreatorHeader({ user }) {
+  // console.log('user:', user);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -18,7 +19,7 @@ function CreatorHeader({ user }) {
 
     return (
       <div className="creator">
-        <Avatar src={user.avatar} alt={`${user.username}'s Avatar`} />
+        <Avatar src={user.avatar} alt={`${user.status.data.username}'s Avatar`} />
         <Follow />
         <FavoritedBy />
         <Points points={user.points} />
