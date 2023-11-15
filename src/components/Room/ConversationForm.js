@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createConversation } from '../../redux/conversations/conversationSlice';
+import { createConversation, loadConversations } from '../../redux/conversations/conversationSlice';
 import { Input, Button, Div } from 'atomize';
+import { useNavigate } from 'react-router-dom';
 
 const ConversationForm = () => {
   const [formData, setFormData] = useState({
     emailInput: '',
-    message: '',
+    chat: '',
   });
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authentication.user.status.data);
+  const conversations = useSelector((state) => state.conversation.userConversations.data);
+  const clickedUser = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch conversations when the component mounts
+    dispatch(loadConversations(user.id));
+  }, [dispatch, user.id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -20,18 +29,41 @@ const ConversationForm = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = {
-      userId: user.id,
-      email: formData.emailInput,
-      message: formData.message,
-    };
-    dispatch(createConversation(data));
-    setFormData({
-      emailInput: '',
-      message: '',
-    });
+
+    // Check if a chat already exists for the clicked user's email
+    const existingChat = getExistingChat(user.id, clickedUser.email);
+
+    // console.log(existingChat)
+    
+    if (existingChat) {
+      // Redirect to the existing chat room
+      navigate(`/creator-homepage/messages/users/${user.id}/conversations/${existingChat.id}`);
+    } else {
+      // Create a new chat
+      const data = {
+        userId: user.id,
+        email: clickedUser.email,
+        chat: formData.chat,
+      };
+      dispatch(createConversation(data));
+      setFormData({
+        emailInput: '',
+        chat: '',
+      });
+
+      // Redirect to the newly created chat room
+      navigate('/creator-homepage/messages/createchat');
+    }
+  };
+
+  const getExistingChat = (userId, email) => {
+    // Your logic to check if a chat already exists based on userId and email
+    return conversations.find((chat) => {
+        const users = chat.attributes.users;
+        return users.some((user) => user.email === email);
+      });
   };
 
   return (
@@ -41,15 +73,8 @@ const ConversationForm = () => {
         <Input
           type="text"
           onChange={handleChange}
-          value={formData.emailInput}
-          name="emailInput"
-          placeholder="Enter email"
-        />
-        <Input
-          type="text"
-          onChange={handleChange}
-          value={formData.message}
-          name="message"
+          value={formData.chat}
+          name="chat"
           placeholder="Enter a Hello message"
         />
         <Button m="0 auto" type="submit" bg="info700" hoverBg="info800" hoverShadow="4">
@@ -61,6 +86,80 @@ const ConversationForm = () => {
 };
 
 export default ConversationForm;
+
+
+
+
+
+// import React, { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createConversation } from '../../redux/conversations/conversationSlice';
+// import { Input, Button, Div } from 'atomize';
+// import { useNavigate } from 'react-router-dom';
+
+// const ConversationForm = () => {
+
+//     const navigate = useNavigate()
+//   const [formData, setFormData] = useState({
+//     emailInput: '',
+//     chat: '',
+//   });
+
+//   const dispatch = useDispatch();
+//   const user = useSelector((state) => state.authentication.user.status.data);
+//   const clickedUser = useSelector((state) => state.user.user)
+
+//   const handleChange = (event) => {
+//     const { name, value } = event.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     const data = {
+//       userId: user.id,
+//       email: clickedUser.email,
+//       chat: formData.message,
+//     };
+//     dispatch(createConversation(data));
+//     setFormData({
+//       emailInput: '',
+//       chat: '',
+//     });
+
+//     navigate(`/creator-homepage/messages/${user.id}`)
+//   };
+
+//   return (
+//     <Div w="100%">
+//       <p m="0 auto">Start New Conversation</p>
+//       <form onSubmit={handleSubmit} w="3rem">
+//         {/* <Input
+//           type="text"
+//           onChange={handleChange}
+//           value={formData.emailInput}
+//           name="emailInput"
+//           placeholder="Enter email"
+//         /> */}
+//         <Input
+//           type="text"
+//           onChange={handleChange}
+//           value={formData.chat}
+//           name="chat"
+//           placeholder="Enter a Hello message"
+//         />
+//         <Button m="0 auto" type="submit" bg="info700" hoverBg="info800" hoverShadow="4">
+//           Send
+//         </Button>
+//       </form>
+//     </Div>
+//   );
+// };
+
+// export default ConversationForm;
 
 
 
