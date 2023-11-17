@@ -5,23 +5,24 @@ import Avatar from './Avatar/Avatar';
 import Points from './Points/Points';
 import Follow from './Follow/Follow';
 import FavoritedBy from './FavoritedBy/FavoritedBy';
-import { logoutCreator } from '../../../redux/authentication/AuthCreatorSlice';
+import { logoutUser } from '../../../redux/authentication/AuthenticationSlice';
 
-function CreatorHeader({ creator }) {
+function CreatorHeader({ user }) {
+  // console.log('user:', user);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logoutCreator());
-    localStorage.removeItem('creator');
+    dispatch(logoutUser());
+    localStorage.removeItem('user');
     window.location.reload();
   };
 
     return (
       <div className="creator">
-        <Avatar src={creator.avatar} alt={`${creator.username}'s Avatar`} />
+        <Avatar src={user.avatar} alt={`${user.status.data.username}'s Avatar`} />
         <Follow />
         <FavoritedBy />
-        <Points points={creator.points} />
+        <Points points={user.points} />
         <button type="button" onClick={handleLogout} className="signout-btn">
             {/* <FaUserCircle className="btn-logo" /> */}
             Log Out

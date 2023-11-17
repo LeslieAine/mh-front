@@ -4,13 +4,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signupCreator } from '../../redux/authentication/AuthCreatorSlice';
+import { signupUser } from '../../redux/authentication/AuthenticationSlice';
 import './SignupForm.css';
 
 const SignupFormCreator = ({ toggleForm }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { creator, isLoading, error } = useSelector((state) => state.authentication);
+  const { user, isLoading, error } = useSelector((state) => state.authentication);
   const [credentials, setCredentials] = useState({
     username: '',
     email: '',
@@ -27,8 +27,8 @@ const SignupFormCreator = ({ toggleForm }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    dispatch(signupCreator({ creator: credentials })).then(() => {
-      if (creator) {
+    dispatch(signupUser({ user: credentials })).then(() => {
+      if (user) {
         navigate('/home');
       }
     });
@@ -65,7 +65,7 @@ const SignupFormCreator = ({ toggleForm }) => {
       {error && <p>{error.message}</p>}
       <small className="prompt">
         Already have an account?
-        <span onClick={toggleForm}> Signin</span>
+        <span onClick={toggleForm}> Sign in</span>
       </small>
     </form>
   );

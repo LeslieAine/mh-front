@@ -15,19 +15,6 @@ const initialState = {
     response: null,
 };
 
-// Define an asynchronous thunk for fetching posts from your Rails API
-// export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-//     try {
-//       const response = await fetch('http://localhost:3000/api/v1/posts'); // Use your Rails API endpoint
-//       if (!response.ok) {
-//         throw new Error('Failed to fetch posts');
-//       }
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       throw error;
-//     }
-//   });
 
 export const getPost = createAsyncThunk(SHOW_POST, async (id, thunkAPI) => {
     const API_URL = `${BASE_URL}/api/v1/posts/${id}`;
@@ -52,34 +39,9 @@ export const fetchPost = createAsyncThunk('post/fetchPost', async (id) => {
     return data;
   });
 
-//   export const addNewPost = createAsyncThunk('posts/addNewPost', async (postData) => {
-//     try {
-//       const response = await fetch('http://localhost:3000/api/v1/posts', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ post: { content: postData.content, user_id: postData.user_id } }), // Send post data in the "post" attribute
-//       });
-//       if (!response.ok) {
-//         throw new Error('Failed to add a new post');
-//       }
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       throw error;
-//     }
-//   });
 
 export const addPost = createAsyncThunk('post/add', async (postProperties, { rejectWithValue }) => {
-    // try {
-    // const token = localStorage.getItem('token');
-    //     console.log(token)
-    //   const response = await axios.post('http://localhost:3000/api/v1/posts', postProperties);
-    //   return response.data;
-    // } catch (error) {
-    //   return rejectWithValue(error.response.data.error);
-    // }
+
     try {
         const token = localStorage.getItem('token'); // Retrieve the user's token
         if (!token) {
@@ -103,37 +65,10 @@ export const addPost = createAsyncThunk('post/add', async (postProperties, { rej
       }
   });
 
-  // Define an asynchronous thunk for fetching a post by ID from your Rails API
-// export const fetchPostById = createAsyncThunk('posts/fetchPostById', async (postId) => {
-//     try {
-//       const response = await fetch(`http://localhost:3000/api/v1/posts/${postId}`); // Use your Rails API endpoint
-//       if (!response.ok) {
-//         throw new Error('Failed to fetch the post');
-//       }
-//       const data = await response.json();
-//       return data;
-//     } catch (error) {
-//       throw error;
-//     }
-//   });
-
 const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    // addPost: (state, action) => {
-    //   // Add a new post to the state
-    //   state.posts.push(action.payload);
-    // },
-    // likePost: (state, action) => {
-    //   // Find the post by ID and increment the likes
-    //   const postId = action.payload;
-    //   const post = state.posts.find((post) => post.id === postId);
-    //   if (post) {
-    //     post.likes += 1;
-    //   }
-    // },
-
     resetErrors: (state) => ({
         ...state,
         error: '',

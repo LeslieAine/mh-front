@@ -74,7 +74,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginClient} from '../../redux/authentication/AuthClientSlice';
+import { loginUser} from '../../redux/authentication/AuthenticationSlice';
 import './LoginForm.css';
 
 // Import the SignupFormCreator component
@@ -103,7 +103,7 @@ const LoginFormClient = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginClient({ client: credentials })).then(() => {
+    dispatch(loginUser({ user: credentials })).then(() => {
       if (client) {
         navigate('/houses');
       }

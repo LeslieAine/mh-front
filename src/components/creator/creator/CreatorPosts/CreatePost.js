@@ -8,12 +8,12 @@ import './CreatePost.css'; // Import your CSS file
 function CreatePost() {
   const [isOpen, setIsOpen] = useState(false);
   const [postContent, setPostContent] = useState('');
-  const { creator } = useSelector((state) => state.authentication);
+  const { user } = useSelector((state) => state.authentication);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const post = { content: postContent, creator_id: creator.status.data.id };
+    const post = { content: postContent, user_id: user.status.data.id };
     if (postContent.trim() !== '') {
         // console.log(newpost)
       dispatch(addPost({ post }));

@@ -1,20 +1,22 @@
 import './App.css';
-import { BrowserRouter } from 'react-router-dom';
+// import { BrowserRouter } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import AppRouter from './routes/Router';
 import NavBar from './components/creator/NavBar/NavBar';
+// import Conversation from './components/messages/ConversationPage';
 
 const App = () => (
   <div className="app-container">
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
       <section className="main-content">
         <AppRouter />
+        {/* <Conversation /> */}
       </section>
       <NavBar />
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
   </div>
 );
 
