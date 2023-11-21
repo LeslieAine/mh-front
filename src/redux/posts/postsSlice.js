@@ -61,7 +61,7 @@ export const deleteBookmark = createAsyncThunk('posts/deleteBookmark', async ({ 
     const token = localStorage.getItem('token');
 //   console.log(postId, likeId)
 
-  const response = await fetch(`http://127.0.0.1:3000/api/v1/posts/${postId}/likes/${bookmarkId}`, {
+  const response = await fetch(`http://127.0.0.1:3000/api/v1/posts/${postId}/bookmarks/${bookmarkId}`, {
     method: 'DELETE',
     headers: {
         Authorization: `Bearer ${token}`,
@@ -157,7 +157,7 @@ const postsSlice = createSlice({
             ...state,
             posts: state.posts.map((post) => {
                 if(post.id === action.payload.post_id){
-                    return {...post, likes: post.bookmarks.concat(newBookmark)}
+                    return {...post, bookmarks: post.bookmarks.concat(newBookmark)}
                     }
                 else{
                     return post
@@ -176,7 +176,7 @@ const postsSlice = createSlice({
             ...state,
             posts: state.posts.map((post) => {
                 if(post.id === action.payload.postId){
-                    return {...post, likes: newbookmarkArray}
+                    return {...post, bookmarks: newbookmarkArray}
                     }
                 else{
                     return post

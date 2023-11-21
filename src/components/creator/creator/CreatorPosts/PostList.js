@@ -166,10 +166,6 @@ const PostCard = ({ post, user, currentUser }) => {
                 const userBookmark = usersBookmark();
                 if (userBookmark) {
                   const bookmarkId = parseInt(userBookmark.id)
-
-                  console.log(bookmarkId)
-
-                  // dispatch(deletebookmark(post.id, bookmarkId));
                   dispatch(deleteBookmark({postId: post.id, bookmarkId }));
 
                 } else {
