@@ -1,26 +1,3 @@
-// import React from 'react';
-// // import PostCard from './PostCard';
-// import CreatorPostCard from './CreatorPostCard';
-
-// function CreatorPostList({ posts }) {
-//   return (
-//     <div className="post-list">
-//       {posts.map((post) => (
-//         <CreatorPostCard
-//           key={post.id}
-//           post = {post}
-//         //   user={post.user}
-//         //   content={post.content}
-//         //   likes={post.likes}
-//         //   comments={post.comments}
-//         />
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default CreatorPostList;
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
@@ -28,21 +5,37 @@ import { fetchPosts } from '../../../../redux/posts/postsSlice'; // Import the f
 import { fetchUser} from '../../../../redux/user/userSlice';
 import ReactionsBar from './ReactionsBar/ReactionsBar';
 import Avatar from '../Avatar/Avatar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 // import CreatorPostCard from './CreatorPostCard';
 
-function CreatorPostList({user}) {
+const CreatorPostList = ({user}) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.posts); // from Redux state structure
 //   console.log(data); 
     const [clickedUser, setClickedUser] = useState(null); // Initialize clickedUserId state
+    const { id } = useParams()
 
-  useEffect(() => {
-    // Dispatch the fetchPosts action when the component mounts
-    dispatch(fetchPosts());
-  }, [dispatch]);
+//   useEffect(() => {
+//     // Dispatch the fetchPosts action when the component mounts
+//     dispatch(fetchPosts());
+//   }, [dispatch]);
+
+useEffect(() => {
+    if (id) {
+      // If the user ID is available in the URL params, fetch user data
+      dispatch(fetchUser(id)).then((action) => {
+        const user = action.payload;
+        setClickedUser(user);
+      });
+    }
+  }, [dispatch, id]);
+
+  const filteredPosts = data.posts.filter((post) => {
+    // Filter posts based on the user ID of the creator
+    return clickedUser ? post.user.id === clickedUser.id : true;
+  });
 
   const handleAvatarClick = (userId) => {
     // Fetch user data for the clicked avatar
@@ -57,7 +50,7 @@ function CreatorPostList({user}) {
       {data.isLoading ? (
         <p>Loading...</p>
       ) : (
-        data.posts && data.posts.map((post) => (
+        filteredPosts.map((post) => (
           <CreatorPostCard key={post.id} 
             post={post} 
             user={post.user} 

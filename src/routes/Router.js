@@ -12,8 +12,9 @@ import ViewCreator from '../components/creator/Pages/ViewCreatorProfile/ViewCrea
 import ContentList from '../components/creator/creator/content/ContentList';
 import About from '../components/creator/creator/About/About';
 import CreatorPostList from '../components/creator/creator/CreatorPosts/CreatorPostList';
+import PostList from '../components/creator/creator/CreatorPosts/PostList';
 import samplePosts from '../components/Client/ClientHomePage/post/SamplePosts';
-import PostList from '../components/Client/ClientHomePage/post/PostList';
+// import PostList from '../components/Client/ClientHomePage/post/PostList';
 import LandingPage from '../components/Pages/LandingPage/Landing';
 // import Conversation from '../components/messages/ConversationPage';
 // import { APP_CABLE_URL } from './constants';
@@ -22,6 +23,7 @@ import DisplayChats from '../components/messages/DisplayChats';
 import Conversation from '../components/Room/Conversation';
 import Conversations from '../components/Room/Conversations';
 import ConversationForm from '../components/Room/ConversationForm';
+import CreatorContentList from '../components/creator/creator/content/CreatorContentList';
 
 
 const AppRouter = () => {
@@ -52,7 +54,7 @@ const AppRouter = () => {
             <ProtectedRoute>
                 <CreatorHomePage />
             </ProtectedRoute>)}>
-            <Route path="posts" element={<CreatorPostList user = {user}/>}/>
+            <Route path="posts" element={<PostList user = {user}/>}/>
             <Route path="content" element={(<ContentPage />)}/>
             <Route path="orders" element={(<OrderPage />)}/>
             {/* <Route path="messages/*" element={(<Conversation cable={CableApp.cable} />)}/> */}
@@ -75,7 +77,7 @@ const AppRouter = () => {
                 <ViewCreator /> 
             </ProtectedRoute>)}>
             <Route path="about-creator" element={<About />} />
-            <Route path="content-list" element={<ContentList />} />
+            <Route path="content-list" element={<CreatorContentList />} />
             <Route path="posts" element={<CreatorPostList />} />
         </Route>
       <Route path="*" element={<h1>Not Found</h1>} />
