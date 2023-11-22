@@ -114,6 +114,7 @@ import purchaseReducer from './purchase/purchaseSlice';
 // import messagesReducer from './messages/messagesSlice';
 import contentsSlice from './content/contentsSlice';
 import conversationSlice from './conversations/conversationSlice';
+import followSlice from './follow/followSlice';
 
 const store = configureStore({
   reducer: {
@@ -129,6 +130,7 @@ const store = configureStore({
     post: postReducer,
     conversation: conversationSlice,
     // Add other reducers as needed
+    follow: followSlice,
   },
 });
 
