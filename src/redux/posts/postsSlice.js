@@ -103,7 +103,7 @@ const postsSlice = createSlice({
         posts: action.payload,
       }))
       .addCase(deleteLike.rejected, (state, action) => {
-        console.log(action.meta.arg.likeId); // Log the payload
+        // console.log(action.meta.arg.likeId); // Log the payload
         return {
             ...state,
             loading: false,

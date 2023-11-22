@@ -7,12 +7,28 @@ import Follow from '../../creator/Follow/Follow';
 import FavoritedBy from '../../creator/FavoritedBy/FavoritedBy';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../../../redux/user/userSlice';
+import { listFollowees, listFollowers } from '../../../../redux/follow/followSlice';
 
-function ViewCreator() {
+const ViewCreator = () => {
 
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
     const { id } = useParams();
+
+    const following = useSelector((state) => state.following)
+  const followers = useSelector((state) => state.followers)
+
+  const userId = parseInt(user.id)
+
+  // const [showFollowers, setShowFollowers] = useState(false);
+  // const [showFollowing, setShowFollowing] = useState(false);
+
+
+  useEffect(() => {
+    // Dispatch the fetchPosts action when the component mount
+    dispatch(listFollowers(user.id));
+    dispatch(listFollowees(user.id))
+  }, [dispatch, user.id]);
 
     useEffect(() => {
         dispatch(fetchUser(id));
