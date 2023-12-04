@@ -110,12 +110,14 @@ import contentReducer from './content/contentSlice'
 import favoritesReducer from './favorite/favoriteSlice'
 import postsReducer from './posts/postsSlice'
 import postReducer from './posts/postSlice'
-import purchaseReducer from './purchase/purchaseSlice';
+// import purchaseReducer from './purchase/purchaseSlice';
 // import messagesReducer from './messages/messagesSlice';
 import contentsSlice from './content/contentsSlice';
 import conversationSlice from './conversations/conversationSlice';
 import followSlice from './follow/followSlice';
 import aboutSlice from './about/aboutSlice';
+import orderSlice from './orders/orderSlice';
+import balanceSlice from './balance/balanceSlice';
 
 const store = configureStore({
   reducer: {
@@ -133,6 +135,8 @@ const store = configureStore({
     // Add other reducers as needed
     follow: followSlice,
     about: aboutSlice,
+    order: orderSlice,
+    balance: balanceSlice,
   },
 });
 
