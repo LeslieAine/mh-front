@@ -24,6 +24,9 @@ import Conversation from '../components/Room/Conversation';
 import Conversations from '../components/Room/Conversations';
 import ConversationForm from '../components/Room/ConversationForm';
 import CreatorContentList from '../components/creator/creator/content/CreatorContentList';
+import MadeOrders from '../components/creator/creator/Orders/MadeOrders';
+import FulfilledOrders from '../components/creator/creator/Orders/FulfilledOrders';
+import OrderList from '../components/creator/creator/Orders/OrderList';
 
 
 const AppRouter = () => {
@@ -33,7 +36,7 @@ const AppRouter = () => {
     CableApp.cable = actionCable.createConsumer('ws://localhost:3000/cable')
     // const userId = user.id;
 
-//     const { id, conversationId } = useParams();
+    // const { id } = useParams();
 
 //   console.log("User ID:", id);
 //   console.log("Conversation ID:", conversationId);
@@ -56,14 +59,16 @@ const AppRouter = () => {
             </ProtectedRoute>)}>
             <Route path="posts" element={<PostList user = {user}/>}/>
             <Route path="content" element={(<ContentPage />)}/>
-            <Route path="orders" element={(<OrderPage />)}/>
+            <Route path="orders" element={(<OrderPage />)}>
+                {/* <Route index element={<OrderList />} /> */}
+                <Route path=":userId/made-orders" element={<MadeOrders />} />
+                <Route path=":userId/fulfilled-orders" element={<FulfilledOrders />} />
+                <Route path=":userId/received-orders" element={<OrderList />} />
+            </Route>
             {/* <Route path="messages/*" element={(<Conversation cable={CableApp.cable} />)}/> */}
             <Route path="messages/*" element={(<DisplayChats cable={CableApp.cable}/>)}>
                 <Route
-                // path={`/creator-homepage/messages/users/${userId}/conversations/${conversationId}`}
                 path="users/:userId/conversations/:conversationId"
-                // path="/creator-homepage/messages/users/45/conversations/5"
-                // render={(routerProps) => <Conversation {...routerProps} />}
                 element={<Conversation />}
                 /> 
                  <Route path=":id" element={(<Conversations />)}/>
