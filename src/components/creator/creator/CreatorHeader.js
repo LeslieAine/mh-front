@@ -23,8 +23,8 @@ const CreatorHeader = ({ user }) => {
         <Avatar src={user.avatar} alt={`${user.status.data.username}'s Avatar`} />
         {/* <MyFollow /> */}
         <MyFollows/>
-        <FavoritedBy />
-        <Points points={user.points} />
+        {/* <FavoritedBy /> */}
+        <Points />
         <button type="button" onClick={handleLogout} className="signout-btn">
             {/* <FaUserCircle className="btn-logo" /> */}
             Log Out

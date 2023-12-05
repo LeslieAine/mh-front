@@ -1,43 +1,16 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import { FaUserCircle } from 'react-icons/fa';
 import { Link, Outlet } from 'react-router-dom';
 import './NavBar.css';
 
 const NavBar = () => {
-//   const [isListShown, setIsListShown] = useState(false);
-//   const dispatch = useDispatch();
 
-//   const closeList = () => {
-//     document.querySelector('.nav-list').classList.remove('visible');
-//     setIsListShown(false);
-//   };
+//   const userId = useSelector((state) => state.authentication.user.status.data.id); 
 
-//   const showList = () => {
-//     document.querySelector('.nav-list').classList.add('visible');
-//     setIsListShown(true);
-//   };
-
-//   const handleLogout = () => {
-//     dispatch(logoutUser());
-//     localStorage.removeItem('user');
-//     window.location.reload();
-//   };
 
   return (
     <nav className="nav-container">
-      {/* <div className="nav-icons">
-        <section className="logo-cont">
-          <img className="logo" src={logo} alt="our logo" />
-        </section>
-        <section className="toggled-btns">
-          {isListShown ? (
-            <CloseBtn onClick={closeList} />
-          ) : (
-            <Hamburger onClick={showList} />
-          )}
-        </section>
-      </div> */}
 
       <ul className="nav-list">
         <li>
@@ -51,7 +24,7 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-            <Link className="nav-link" to="/creator-homepage/orders">
+            <Link className="nav-link" to={`/creator-homepage/orders`}>
                 <i className="fas fa-shopping-bag"></i>
             </Link>
         </li>

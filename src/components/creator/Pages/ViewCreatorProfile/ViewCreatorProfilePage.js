@@ -8,6 +8,7 @@ import FavoritedBy from '../../creator/FavoritedBy/FavoritedBy';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUser } from '../../../../redux/user/userSlice';
 import { listFollowees, listFollowers } from '../../../../redux/follow/followSlice';
+import CreateOrder from '../../creator/Orders/CreateOrder';
 
 const ViewCreator = () => {
 
@@ -54,7 +55,8 @@ const ViewCreator = () => {
         <Follow />
         {/* <Link to={`/creator-profile/${id}/chatrooms/createchat`}>Message</Link> */}
         <Link to={`/creator-homepage/messages/createchat`}>Message</Link>
-        <FavoritedBy />
+        {/* <FavoritedBy /> */}
+        <CreateOrder />
       </div>
 
       {/* Navigation links to different components */}
