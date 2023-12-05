@@ -106,7 +106,7 @@ const PostCard = ({ post, user, currentUser }) => {
                 if (userLike) {
                   const likeId = parseInt(userLike.id)
 
-                  console.log(likeId)
+                  // console.log(likeId)
 
                   // dispatch(deleteLike(post.id, likeId));
                   dispatch(deleteLike({postId: post.id, likeId }));

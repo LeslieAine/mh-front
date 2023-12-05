@@ -38,7 +38,7 @@ const MyFollows = () => {
     //     dispatch(listFollowees(currentUser.id))
     // }, [dispatch, currentUser.id]);
     useEffect(() => {
-      console.log(userId)
+    //   console.log(userId)
 
       // Check if user is available before dispatching actions
       if (userId) {
