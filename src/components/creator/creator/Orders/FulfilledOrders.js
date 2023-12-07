@@ -42,17 +42,7 @@ export default FulfilledOrders;
 
 
 const OrderCard = ({ description, requestedLength, content, price }) => {
-    // const [status, setStatus] = useState(null);
-  
-    // const handleAccept = () => {
-    //   setStatus('Accepted');
-    //   onAccept(); // You can implement this function to handle the accept action
-    // };
-  
-    // const handleReject = () => {
-    //   setStatus('Rejected');
-    //   onReject(); // You can implement this function to handle the reject action
-    // };
+
   
     return (
       <div className="order-card">
