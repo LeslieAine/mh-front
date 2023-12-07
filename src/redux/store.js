@@ -118,6 +118,7 @@ import followSlice from './follow/followSlice';
 import aboutSlice from './about/aboutSlice';
 import orderSlice from './orders/orderSlice';
 import balanceSlice from './balance/balanceSlice';
+import purchaseSlice from './purchase/purchaseSlice';
 
 const store = configureStore({
   reducer: {
@@ -128,15 +129,13 @@ const store = configureStore({
     contents: contentsSlice,
     favorites: favoritesReducer,
     posts: postsReducer,
-    // purchase: purchaseReducer,
-    // messages: messagesReducer,
     post: postReducer,
     conversation: conversationSlice,
-    // Add other reducers as needed
     follow: followSlice,
     about: aboutSlice,
     order: orderSlice,
     balance: balanceSlice,
+    purchase: purchaseSlice,
   },
 });
 
