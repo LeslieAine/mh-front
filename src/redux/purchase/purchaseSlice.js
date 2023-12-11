@@ -1,47 +1,102 @@
-// // purchaseSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { original } from 'immer'
 
-// import { createSlice } from '@reduxjs/toolkit';
-// import { updateBalance } from '../user/usersSlice'; // Import the userSlice action
 
-// const initialState = {
-//     purchases: [], // Array to store purchase history
-// };
+export const userPurchases = createAsyncThunk('purchases/userPurchases', async (userId) => {
+    const token = localStorage.getItem('token');
 
-// const purchaseSlice = createSlice({
-//   name: 'purchase',
-//   initialState,
-//   reducers: {
-//     addPurchase: (state, action) => {
-//       state.purchases.push(action.payload);
-//     },
-//   },
-// });
+  const response = await fetch(`http://127.0.0.1:3000/api/v1/users/${userId}/purchased_contents`, {
+    method: 'GET',
+    headers: {
+        Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    // body: JSON.stringify({ userId }),
+  });
+  const data = await response.json();
+  return data;
+});
 
-// // Async action to handle a purchase
-// export const purchaseContent = (contentId, userId, contentPrice) => async (dispatch, getState) => {
-//   const userBalance = getState().user.balance; // Assuming you have user data in the state
+export const contentPurchases = createAsyncThunk('purchases/contentPurchases', async (contentId) => {
+    const token = localStorage.getItem('token');
 
-//   if (userBalance >= contentPrice) {
-//      // Calculate the updated balance after deduction
-//      const updatedBalance = userBalance - contentPrice;
+  const response = await fetch(`http://127.0.0.1:3000/api/v1/contents/${contentId}/purchases_on_content`, {
+    method: 'GET',
+    headers: {
+        Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    // body: JSON.stringify({ userId }),
+  });
+  const data = await response.json();
+  return data;
+});
 
-//      // Dispatch the updateBalance action to update the user's balance
-//      dispatch(updateBalance(updatedBalance));
+export const createPurchase = createAsyncThunk('purchases/createPurchase', async ({purchase, contentId}) => {
+    const token = localStorage.getItem('token');
 
-//     // Create a new purchase record
-//     const newPurchase = {
-//       contentId,
-//       userId,
-//       transactionDate: new Date(),
-//     };
+  const response = await fetch(`http://127.0.0.1:3000/api/v1/contents/${contentId}/create`, {
+    method: 'POST',
+    headers: {
+        Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(purchase),
+  });
+  const data = await response.json();
+  return data;
+});
 
-//     // Dispatch the addPurchase action to add the purchase to the history
-//     dispatch(addPurchase(newPurchase));
-//   } else {
-//     // Handle insufficient balance (e.g., show an error message)
-//   }
-// };
-
-// export const { addPurchase } = purchaseSlice.actions;
-
-// export default purchaseSlice.reducer;
+const purchaseSlice = createSlice({
+    name: 'orders',
+    initialState: {
+      loading: false,
+      contentPurchases: [],
+      userPurchases: [],
+      temp: [],
+      message: '',
+      isLoading: false,
+      success: false,
+      response: null,
+      error: '',
+    },
+    reducers: {},
+    extraReducers: (builder) => {
+      builder
+        .addCase(createPurchase.pending, (state) => ({
+          ...state,
+          loading: true,
+          error: '',
+        }))
+        .addCase(createPurchase.fulfilled, (state, action) => ({
+          // console.log(action.payload)
+          ...state,
+          loading: false,
+          message: action.payload,
+        }))
+        .addCase(userPurchases.pending, (state) => ({
+          ...state,
+          loading: true,
+          error: '',
+        }))
+        .addCase(userPurchases.fulfilled, (state, action) => ({
+          // console.log(action.payload)
+          ...state,
+          loading: false,
+          userPurchases: action.payload,
+        }))
+        .addCase(contentPurchases.pending, (state) => ({
+          ...state,
+          loading: true,
+          error: '',
+        }))
+        .addCase(contentPurchases.fulfilled, (state, action) => ({
+          // console.log(action.payload)
+          ...state,
+          loading: false,
+          contentPurchases: action.payload,
+        }))
+    }
+    })
+  
+  export default purchaseSlice.reducer;

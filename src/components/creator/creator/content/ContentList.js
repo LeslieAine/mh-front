@@ -1,29 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import { fetchContents } from '../../../../redux/content/contentsSlice';
 import './ContentList.css';
 import './ContentCard.css';
-
-// import ReactionsBar from './ReactionsBar/ReactionsBar';
-
-// import CreatorPostCard from './CreatorPostCard';
+// import { contentPurchases, createPurchase } from '../../../../redux/purchase/purchaseSlice';
 
 const ContentList = () =>  {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.contents); // from Redux state structure
   const user = useSelector((state) => state.authentication.user.status.data)
+  const userId = user.id
 //   console.log(data);
 
   useEffect(() => {
     // Dispatch the fetchContent action when the component mounts
-    dispatch(fetchContents());
+    dispatch(fetchContents(userId));
   }, [dispatch]);
 
-  const filteredContent = data.contents.filter((content) => {
-    // Filter posts based on the user ID of the creator
-    return user ? content.user_id === user.id: true;
-  });
+  const filteredContent = data.contents
 
   return (
     <div className="content-list">
@@ -31,7 +25,10 @@ const ContentList = () =>  {
         <p>Loading...</p>
       ) : (
         filteredContent.map((content) => (
-          <ContentCard key={content.id} content={content} />
+          <ContentCard 
+            key={content.id} 
+            content={content}
+            contentId = {content.id} />
         ))
       )}
     </div>
@@ -39,6 +36,20 @@ const ContentList = () =>  {
 }
 
 const ContentCard = ({ content }) => {
+//   const dispatch = useDispatch();
+
+//   useEffect(() => {
+
+//     dispatch(contentPurchases(contentId));
+
+//   }, [dispatch]);
+
+//     const handleBuy = () => {
+//         // Dispatch the buyContent action when the "Buy" button is clicked
+//         dispatch(createPurchase(content.id));
+//       };
+
+
     return (
         <div className="content-card">
         <div className="card-header">
@@ -48,7 +59,8 @@ const ContentCard = ({ content }) => {
         </div>
         <div className="card-details">
           <p>Price: {content.price}</p>
-          {/* <p>Length: {content.length}</p> */}
+          {/* <button onClick={handleBuy}>Buy</button> */}
+          {/* <p>Buys: {content.length}</p> */}
         </div>
       </div>
     );
